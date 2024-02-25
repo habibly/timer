@@ -1,3 +1,13 @@
+# Timer 
+
+A utility app to set multiple timers
+
+ - user can set timer length inn hours minutes seconds
+ - user can start timer
+ - user can reset timer
+ - user can see timer countdown
+ - user can create multiple timers
+ 
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
