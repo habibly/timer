@@ -1,0 +1,40 @@
+.countdown {
+  background-color: #1C1C1E;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px 18px;
+  border-radius: 8px;
+}
+
+.countdown .unit {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+.countdown .unit input {
+  font-size: 72px;
+  line-height: 72px;
+  color: #fff;
+  background-color: transparent;
+  border: none;
+  width: 2ch;
+}
+
+.countdown .unit input::-webkit-outer-spin-button,
+.countdown .unit input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  /* <-- Apparently some margin are still there even though it's hidden */
+  -moz-appearance: textfield;
+  /* Firefox */
+
+}
+
+
+.countdown .unit label {
+  font-size: 14px;
+  color: #fff;
+}
