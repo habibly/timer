@@ -1,13 +1,10 @@
 import { useState } from 'react';
 import styles from './NewTimer.module.css';
 
-function CountDown(props) {
+function CountDown({newTimer, updateNewTimer}) {
   const [hrs, setHrs] = useState('00');
   const [min, setMin] = useState('00');
   const [sec, setSec] = useState('00');
-
-  const newTimer = props.newTimer;
-  const updateNewTimer = props.updateNewTimer;
 
 
   function handleChange(e) {
@@ -108,9 +105,7 @@ function AlarmRingtone() {
   )
 }
 
-function Controls(props) {
-  const timers = props.timers;
-  const setTimers = props.setTimers;
+function Controls({timers, setTimers}) {
 
   function handleCancel(e) {
     console.log(e)
@@ -127,7 +122,7 @@ function Controls(props) {
     </div>
   )
 }
-function NewTimer(props) {
+function NewTimer({ timers, setTimers}) {
   // set hours, minutes, and seconds
   // set label 
   // set sound for when timer ends 
@@ -149,7 +144,7 @@ function NewTimer(props) {
       <CountDown newTimer={newTimer} updateNewTimer={updateNewTimer} />
       <Label newTimer={newTimer} updateNewTimer={updateNewTimer} />
       <AlarmRingtone newTimer={newTimer} updateNewTimer={updateNewTimer} />
-      <Controls newTimer={newTimer} updateNewTimer={updateNewTimer} timers={props.timers} setTimers={props.setTimers} />
+      <Controls newTimer={newTimer} updateNewTimer={updateNewTimer} timers={timers} setTimers={setTimers} />
     </div>
   )
 }

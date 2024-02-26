@@ -1,7 +1,7 @@
 import styles from "./Header.module.css";
 
-function Toolbar(props) {
-  if (props.totalTimers > 0) {
+function Toolbar({ totalTimers }) {
+  if (totalTimers > 0) {
     return (
       <div className={styles.toolbar}>
         <button className={styles.button}> Edit</button>
@@ -36,10 +36,10 @@ function Toolbar(props) {
   }
 }
 
-function Header(props) {
+function Header({ totalTimers }) {
   return (
     <div className={styles.wrapper}>
-      <Toolbar totalTimers={props.totalTimers} />
+      <Toolbar totalTimers={totalTimers} />
       <h1 className={styles.h1}>Timers</h1>
     </div>
   );
