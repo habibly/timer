@@ -65,11 +65,14 @@ function CountDown({newTimer, updateNewTimer}) {
   )
 }
 
-function Label() {
+function Label({ newTimer, updateNewTimer}) {
   const [label, setLabel] = useState('');
+  const updatedNewTimer = Object.assign({}, newTimer)
 
   function handleChange(e) {
     setLabel(e.target.value)
+    updatedNewTimer.label = e.target.value;
+    updateNewTimer(updatedNewTimer);
   }
 
   return (
@@ -80,25 +83,25 @@ function Label() {
   )
 }
 
-function AlarmRingtone() {
-
-  const [ringtone, setRingtone] = useState("Bells");
+function AlarmRingtone({ newTimer, updateNewTimer}) {
+  const ringtonesList = newTimer.ringtones.list;
+  const defaultRingtone = newTimer.ringtones.selected;
+  const updatedNewTimer = Object.assign({}, newTimer);
+  const [ringtone, setRingtone] = useState(defaultRingtone);
 
   function handleChange(e) {
     setRingtone(e.target.value);
+    updatedNewTimer.ringtones.selected = e.target.value;
+    updateNewTimer(updatedNewTimer);
   }
   
-  function sCase(string) {
-    // snake case 
-    return string.toLowerCase().replace(' ', '_');
-  }
-  const ringtones = ["Bells", "Wind Chime"];
+
   return (
     <div className={styles.alarm_ringtone}>
       <label htmlFor="ringtones">Alarm ringtone</label>
-      <select onChange={handleChange} defaultValue={sCase(ringtone)} id="ringtones">
-      {ringtones.map((option, i) => {
-        return <option key={sCase(option)} value={sCase(option)}>{option}</option>
+      <select onChange={handleChange}  id="ringtones">
+      {ringtonesList.map((option, i) => {
+        return <option key={i} value={option}>{option}</option>
       })}
       </select>
     </div>
@@ -129,9 +132,12 @@ function NewTimer({ timers, setTimers}) {
   // start new timer
   // close new timer screen
   const [newTimer, setNewTimer] = useState({
-    "duration": ['00', '00', '00'],
-    "label": "",
-    "ringtone": "",
+    duration: ['00', '00', '00'],
+    label: "",
+    ringtones: {
+      list: ["Bells", "Wind Chime"],
+      selected: "Bells"
+    },
   });
 
   function updateNewTimer(updatedNewTimer) {
