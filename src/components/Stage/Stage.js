@@ -11,12 +11,25 @@ function Stage() {
   // show new timer on initialization if no existing timers
 
   const [editMode, setEditMode] = useState(false);
-  const [timers, setTimers] = useState([]);
+  const [timers, setTimers] = useState([
+    {
+      duration: ['23', '59', '59'],
+      label: "Timer",
+      ringtones: {
+        list: ["Bells", "Wind Chime"],
+        selected: "Bells"
+      },
+    }
+  ]);
+
+  function updateTimers(updatedTimers) {
+    setTimers(updatedTimers)
+  }
 
   return (
     <div className={styles.wrapper}>
       <Header totalTimers={timers.length} />
-      <NewTimer timers={timers} setTimers={setTimers} />
+      <NewTimer timers={timers} updateTimers={updateTimers} />
     </div>
   )
 }

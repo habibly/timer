@@ -2,9 +2,9 @@ import { useState } from 'react';
 import styles from './NewTimer.module.css';
 
 function CountDown({newTimer, updateNewTimer}) {
-  const [hrs, setHrs] = useState('00');
-  const [min, setMin] = useState('00');
-  const [sec, setSec] = useState('00');
+  const [hrs, setHrs] = useState(newTimer.duration[0]);
+  const [min, setMin] = useState(newTimer.duration[1]);
+  const [sec, setSec] = useState(newTimer.duration[2]);
 
 
   function handleChange(e) {
@@ -108,14 +108,25 @@ function AlarmRingtone({ newTimer, updateNewTimer}) {
   )
 }
 
-function Controls({timers, setTimers}) {
+function Controls({newTimer, timers, updateTimers}) {
 
   function handleCancel(e) {
     console.log(e)
   }
 
   function handleStart(e) {
-    console.log(e)
+
+    // copy exisitng entries in new array
+    const updatedTimers = [];
+    timers.forEach(entries => {
+      updatedTimers.push(entries)
+    })
+
+
+    updatedTimers.push(newTimer);
+
+
+    updateTimers(updatedTimers)
   }
 
   return (
@@ -125,14 +136,14 @@ function Controls({timers, setTimers}) {
     </div>
   )
 }
-function NewTimer({ timers, setTimers}) {
+function NewTimer({ timers, updateTimers}) {
   // set hours, minutes, and seconds
   // set label 
   // set sound for when timer ends 
   // start new timer
   // close new timer screen
   const [newTimer, setNewTimer] = useState({
-    duration: ['00', '00', '00'],
+    duration: ['00', '05', '00'],
     label: "",
     ringtones: {
       list: ["Bells", "Wind Chime"],
@@ -141,7 +152,6 @@ function NewTimer({ timers, setTimers}) {
   });
 
   function updateNewTimer(updatedNewTimer) {
-    console.log(updatedNewTimer)
     setNewTimer(updatedNewTimer);
   }
 
@@ -150,7 +160,7 @@ function NewTimer({ timers, setTimers}) {
       <CountDown newTimer={newTimer} updateNewTimer={updateNewTimer} />
       <Label newTimer={newTimer} updateNewTimer={updateNewTimer} />
       <AlarmRingtone newTimer={newTimer} updateNewTimer={updateNewTimer} />
-      <Controls newTimer={newTimer} updateNewTimer={updateNewTimer} timers={timers} setTimers={setTimers} />
+      <Controls newTimer={newTimer} updateNewTimer={updateNewTimer} timers={timers} updateTimers={updateTimers} />
     </div>
   )
 }

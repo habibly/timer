@@ -17,8 +17,8 @@ function Toolbar({ totalTimers }) {
             <path
               d="M10 1L10 19"
               stroke="#FF9F0A"
-              stroke-width="1.5"
-              stroke-linecap="round"
+              strokeWidth="1.5"
+              strokeLinecap="round"
             />
             <line
               x1="0.75"
@@ -26,8 +26,8 @@ function Toolbar({ totalTimers }) {
               x2="19.25"
               y2="10.25"
               stroke="#FF9F0A"
-              stroke-width="1.5"
-              stroke-linecap="round"
+              strokeWidth="1.5"
+              strokeLinecap="round"
             />
           </svg>
         </button>
