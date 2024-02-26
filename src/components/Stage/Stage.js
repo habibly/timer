@@ -32,9 +32,9 @@ function Stage() {
       }
       
       {
-        timers.length > 0 && <div> {
+        timers.length > 0 && <div className={styles.timers}> {
           timers.map((timer, i) => {
-            return <Timer timer={timer} key={i} />
+            return <Timer timer={timer} key={i} id={i} />
           })
         } </div>
       }

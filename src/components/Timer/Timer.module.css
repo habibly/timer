@@ -1,0 +1,14 @@
+.timer {
+  padding: 18px;
+  border-bottom: 1px solid #323136;
+}
+
+.border_top {
+  border-top: 1px solid #323136;
+}
+
+.countdown {
+  color: #fff;
+}
+
+.controls {}
