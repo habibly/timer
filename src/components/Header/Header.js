@@ -1,12 +1,15 @@
 import styles from "./Header.module.css";
 
-function Toolbar({ totalTimers }) {
+function Toolbar({ totalTimers, updateNewTimerVisibility }) {
+  function handleChange() {
+    updateNewTimerVisibility(true)
+  }
   if (totalTimers > 0) {
     return (
       <div className={styles.toolbar}>
         <button className={styles.button}> Edit</button>
 
-        <button className={styles.new}>
+        <button onClick={handleChange} className={styles.new}>
           <svg
             width="20"
             height="20"
@@ -36,10 +39,10 @@ function Toolbar({ totalTimers }) {
   }
 }
 
-function Header({ totalTimers }) {
+function Header({ totalTimers, updateNewTimerVisibility }) {
   return (
     <div className={styles.wrapper}>
-      <Toolbar totalTimers={totalTimers} />
+      <Toolbar totalTimers={totalTimers} updateNewTimerVisibility={updateNewTimerVisibility} />
       <h1 className={styles.h1}>Timers</h1>
     </div>
   );

@@ -108,25 +108,17 @@ function AlarmRingtone({ newTimer, updateNewTimer}) {
   )
 }
 
-function Controls({newTimer, timers, updateTimers}) {
+function Controls({newTimer, timers, updateTimers, updateNewTimerVisibility}) {
 
   function handleCancel(e) {
-    console.log(e)
+    updateNewTimerVisibility(false);
   }
 
   function handleStart(e) {
-
-    // copy exisitng entries in new array
-    const updatedTimers = [];
-    timers.forEach(entries => {
-      updatedTimers.push(entries)
-    })
-
-
+    const updatedTimers = timers.slice();
     updatedTimers.push(newTimer);
-
-
     updateTimers(updatedTimers)
+    updateNewTimerVisibility(false);
   }
 
   return (
@@ -136,7 +128,7 @@ function Controls({newTimer, timers, updateTimers}) {
     </div>
   )
 }
-function NewTimer({ timers, updateTimers}) {
+function NewTimer({ timers, updateTimers, updateNewTimerVisibility}) {
   // set hours, minutes, and seconds
   // set label 
   // set sound for when timer ends 
@@ -160,7 +152,7 @@ function NewTimer({ timers, updateTimers}) {
       <CountDown newTimer={newTimer} updateNewTimer={updateNewTimer} />
       <Label newTimer={newTimer} updateNewTimer={updateNewTimer} />
       <AlarmRingtone newTimer={newTimer} updateNewTimer={updateNewTimer} />
-      <Controls newTimer={newTimer} updateNewTimer={updateNewTimer} timers={timers} updateTimers={updateTimers} />
+      <Controls newTimer={newTimer} updateNewTimer={updateNewTimer} timers={timers} updateTimers={updateTimers} updateNewTimerVisibility={updateNewTimerVisibility} />
     </div>
   )
 }
