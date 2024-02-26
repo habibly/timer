@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import styles from './NewTimer.module.css';
 
-function CountDown() {
+function CountDown(props) {
   const [hrs, setHrs] = useState('00');
   const [min, setMin] = useState('00');
   const [sec, setSec] = useState('00');
+
+  const newTimer = props.newTimer;
+  const updateNewTimer = props.updateNewTimer;
 
 
   function handleChange(e) {
@@ -12,6 +15,7 @@ function CountDown() {
     const unit = e.target.name;
     const value = e.target.value;
 
+    const updatedNewTimer = Object.assign({}, newTimer)
 
     function conactLastChar(curr, next) {
       return `${curr.split('')[curr.length - 1].concat(next.split('')[next.length - 1])}`;
@@ -20,21 +24,21 @@ function CountDown() {
 
     switch (unit) {
       case 'hh':
-        if(parseInt(value) <= 23) {
-          setHrs(conactLastChar(hrs, value))
-        }
+        setHrs(conactLastChar(hrs, value))
+        updatedNewTimer.duration = [conactLastChar(hrs, value), min, sec]
+        updateNewTimer(updatedNewTimer)
         break;
 
       case 'mm':
-        if(parseInt(value) <= 59) {
-          setMin(conactLastChar(min, value))
-        }
+        setMin(conactLastChar(min, value))
+        updatedNewTimer.duration = [hrs, conactLastChar(min, value), sec]
+        updateNewTimer(updatedNewTimer)
         break;
       
       case 'ss':
-        if(parseInt(value) <= 59) {
-          setSec(conactLastChar(sec, value))
-        }
+        setSec(conactLastChar(sec, value))
+        updatedNewTimer.duration = [hrs, min, conactLastChar(sec, value)]
+        updateNewTimer(updatedNewTimer)
         break;
       
       default:
@@ -64,14 +68,89 @@ function CountDown() {
   )
 }
 
-function NewTimer() {
+function Label() {
+  const [label, setLabel] = useState('');
+
+  function handleChange(e) {
+    setLabel(e.target.value)
+  }
+
+  return (
+    <div className={styles.timer_label}>
+      <label htmlFor="time_label">Label</label>
+      <input onChange={handleChange} id="time_label" type="text" value={label} name="time_label" placeholder="Timer" />
+    </div>
+  )
+}
+
+function AlarmRingtone() {
+
+  const [ringtone, setRingtone] = useState("Bells");
+
+  function handleChange(e) {
+    setRingtone(e.target.value);
+  }
+  
+  function sCase(string) {
+    // snake case 
+    return string.toLowerCase().replace(' ', '_');
+  }
+  const ringtones = ["Bells", "Wind Chime"];
+  return (
+    <div className={styles.alarm_ringtone}>
+      <label htmlFor="ringtones">Alarm ringtone</label>
+      <select onChange={handleChange} defaultValue={sCase(ringtone)} id="ringtones">
+      {ringtones.map((option, i) => {
+        return <option key={sCase(option)} value={sCase(option)}>{option}</option>
+      })}
+      </select>
+    </div>
+  )
+}
+
+function Controls(props) {
+  const timers = props.timers;
+  const setTimers = props.setTimers;
+
+  function handleCancel(e) {
+    console.log(e)
+  }
+
+  function handleStart(e) {
+    console.log(e)
+  }
+
+  return (
+    <div className={styles.controls}>
+      <button className={styles.cancel} onClick={handleCancel} disabled={timers.length === 0}>Cancel</button>
+      <button className={styles.start} onClick={handleStart}>Start</button>
+    </div>
+  )
+}
+function NewTimer(props) {
   // set hours, minutes, and seconds
   // set label 
   // set sound for when timer ends 
   // start new timer
   // close new timer screen
+  const [newTimer, setNewTimer] = useState({
+    "duration": ['00', '00', '00'],
+    "label": "",
+    "ringtone": "",
+  });
+
+  function updateNewTimer(updatedNewTimer) {
+    console.log(updatedNewTimer)
+    setNewTimer(updatedNewTimer);
+  }
+
   return (
-    <CountDown />
+    <div className={styles.new_timer_wrapper}>
+      <CountDown newTimer={newTimer} updateNewTimer={updateNewTimer} />
+      <Label newTimer={newTimer} updateNewTimer={updateNewTimer} />
+      <AlarmRingtone newTimer={newTimer} updateNewTimer={updateNewTimer} />
+      <Controls newTimer={newTimer} updateNewTimer={updateNewTimer} timers={props.timers} setTimers={props.setTimers} />
+    </div>
   )
 }
 

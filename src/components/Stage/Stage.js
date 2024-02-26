@@ -16,7 +16,7 @@ function Stage() {
   return (
     <div className={styles.wrapper}>
       <Header totalTimers={timers.length} />
-      <NewTimer />
+      <NewTimer timers={timers} setTimers={setTimers} />
     </div>
   )
 }
