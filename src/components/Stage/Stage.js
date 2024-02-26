@@ -12,14 +12,7 @@ function Stage() {
 
   const [editMode, setEditMode] = useState(false);
   const [timers, setTimers] = useState([
-    {
-      duration: ['23', '59', '59'],
-      label: "Timer",
-      ringtones: {
-        list: ["Bells", "Wind Chime"],
-        selected: "Bells"
-      },
-    }
+    
   ]);
 
   function updateTimers(updatedTimers) {
