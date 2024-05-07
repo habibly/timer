@@ -1,12 +1,6 @@
 # Timer 
 
-A utility app to set multiple timers
-
- - user can set timer length inn hours minutes seconds
- - user can start timer
- - user can reset timer
- - user can see timer countdown
- - user can create multiple timers
+A utility app for concurrent timers
  
 # Getting Started with Create React App
 
