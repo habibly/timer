@@ -12,30 +12,37 @@ function CountDown({newTimer, updateNewTimer}) {
     const unit = e.target.name;
     const value = e.target.value;
 
-    const updatedNewTimer = Object.assign({}, newTimer)
+    const newTimerCopy = Object.assign({}, newTimer)
 
-    function conactLastChar(curr, next) {
-      return `${curr.split('')[curr.length - 1].concat(next.split('')[next.length - 1])}`;
-    }
+    // function conactLastChar(curr, next) {
+    //   return `${curr.split('')[curr.length - 1].concat(next.split('')[next.length - 1])}`;
+    // }
 
 
     switch (unit) {
       case 'hh':
-        setHrs(conactLastChar(hrs, value))
-        updatedNewTimer.duration = [conactLastChar(hrs, value), min, sec]
-        updateNewTimer(updatedNewTimer)
+
+        if (value < 24 && value >= 0)  {
+          setHrs(parseInt(value))
+          newTimerCopy.duration = [parseInt(value), min, sec]
+          updateNewTimer(newTimerCopy)
+        }
         break;
 
       case 'mm':
-        setMin(conactLastChar(min, value))
-        updatedNewTimer.duration = [hrs, conactLastChar(min, value), sec]
-        updateNewTimer(updatedNewTimer)
+        if (value < 60 && value >= 0)  {
+          setMin(parseInt(value))
+          newTimerCopy.duration = [hrs, parseInt(value), sec]
+          updateNewTimer(newTimerCopy)
+        }
         break;
       
       case 'ss':
-        setSec(conactLastChar(sec, value))
-        updatedNewTimer.duration = [hrs, min, conactLastChar(sec, value)]
-        updateNewTimer(updatedNewTimer)
+        if (value < 60 && value >= 0)  {
+          setSec(parseInt(value))
+          newTimerCopy.duration = [hrs, min, parseInt(value)]
+          updateNewTimer(newTimerCopy)
+        }
         break;
       
       default:
@@ -50,15 +57,15 @@ function CountDown({newTimer, updateNewTimer}) {
   return (
     <div className={styles.countdown}>
       <div className={styles.unit}>
-        <input onChange={handleChange} onScroll={handleScroll} onClick={e => e.target.select()} id='hh' type='number' value={hrs} name='hh' />
+        <input onChange={handleChange} onScroll={handleScroll} onClick={e => e.target.select()} id='hh' type='number' value={String(hrs).padStart(2, '0')} name='hh' />
         <label htmlFor="hh">hrs</label>
       </div>
       <div className={styles.unit}>
-        <input onChange={handleChange} onScroll={handleScroll} onClick={e => e.target.select()} id='mm' type='number' value={min} name='mm' />
+        <input onChange={handleChange} onScroll={handleScroll} onClick={e => e.target.select()} id='mm' type='number' value={String(min).padStart(2, '0')} name='mm' />
         <label htmlFor="mm">min</label>
       </div>
       <div className={styles.unit}>
-        <input onChange={handleChange} onScroll={handleScroll} onClick={e => e.target.select()} id='ss' type='number' value={sec} name='ss' />
+        <input onChange={handleChange} onScroll={handleScroll} onClick={e => e.target.select()} id='ss' type='number' value={String(sec).padStart(2, '0')} name='ss' />
         <label htmlFor="ss">sec</label>
       </div>
     </div>
